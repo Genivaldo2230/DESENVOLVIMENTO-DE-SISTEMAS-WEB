@@ -8,7 +8,5 @@ public class ExperienciaProfissionalDtos {
     private String empresa;
     private String cargo;
     private String periodo;
-
-
-
 }
+

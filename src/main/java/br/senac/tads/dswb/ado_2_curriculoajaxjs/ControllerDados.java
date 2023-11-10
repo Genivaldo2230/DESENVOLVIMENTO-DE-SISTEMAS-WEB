@@ -1,31 +1,27 @@
 package br.senac.tads.dswb.ado_2_curriculoajaxjs;
 
 
-import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.DadosPessoaisDtos;
-import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.ExperienciaProfissionalDtos;
-import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.FormacaoAcademicaDtos;
-import ch.qos.logback.core.model.Model;
+
+import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-
-import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.Idiomas;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ControllerDados {
 
-    //http://127.0.0.1:8080/dados
-
     @GetMapping("/dados")
-    public DadosPessoaisDtos obterDadosPessoais(){
-
+    public DadosPessoaisDtos obterDadosPessoais() {
         DadosPessoaisDtos dados = new DadosPessoaisDtos();
 
         dados.setNome("Genivaldo Alves dos Anjos");
@@ -44,28 +40,27 @@ public class ControllerDados {
         experienciaProfissional.add(experiencia);
         dados.setExperienciaProfissional(experienciaProfissional);
 
-        List<String> conhecimentos = new ArrayList<>();
-
-        conhecimentos.add("Java");
-        conhecimentos.add("Html");
-        conhecimentos.add("Css");
-        conhecimentos.add("Bootstrap");
-        conhecimentos.add("JavaScript");
-        dados.setConhecimentos(conhecimentos);
+        // Existing code...
 
         List<FormacaoAcademicaDtos> formacaoAcademica = new ArrayList<>();
+
         FormacaoAcademicaDtos formacao1 = new FormacaoAcademicaDtos();
-        FormacaoAcademicaDtos formacao2 = new FormacaoAcademicaDtos();
-        formacao1.setCurso("Html Css javaScript");
+        formacao1.setCurso("Programador Front-end: Introdução");
         formacao1.setInstituicao("DevMedia");
-        formacao2.setCurso("Aws Cloud foundation");
-        formacao2.setInstituicao("Amazon");
-        formacao2.setLink("#");
+        formacao1.setLink("https://www.devmedia.com.br/cursos/certificado/novo_certificado.php?id=114298"); // You can set this to null or leave it if you want to keep it null
+
+        FormacaoAcademicaDtos formacao2 = new FormacaoAcademicaDtos();
+        formacao2.setCurso("HTML: Fundamentos do HTML");
+        formacao2.setInstituicao("DevMedia");
+        formacao2.setLink("https://www.devmedia.com.br/certificado/tecnologia/html/genivaldo-alves");
 
         formacaoAcademica.add(formacao1);
         formacaoAcademica.add(formacao2);
 
         dados.setFormacaoAcademica(formacaoAcademica);
+
+// Existing code...
+
 
         List<Idiomas> idiomas = new ArrayList<>();
 
@@ -97,18 +92,15 @@ public class ControllerDados {
         return dados;
     }
     @Controller
+    @RequestMapping("/minhaPagina")
     public class MinhaPaginaController {
 
-        @GetMapping("/minhaPagina")
-        public ModelAndView pagina(Model model) {
+        @GetMapping
+        public ModelAndView pagina() {
             ModelAndView mv = new ModelAndView();
-            model.addText("dados"); // Adicione os dados ao model
-
+            mv.addObject("dados", obterDadosPessoais());
             mv.setViewName("Dados");
             return mv;
         }
-
     }
-
-
 }
