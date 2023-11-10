@@ -1,11 +1,16 @@
 @charset "utf-8";
 
-/*
+
 * {
-  outline: 3px solid red;
-  background-color: rgba(200, 200, 200, 0.3);
+  /*outline: 3px solid red;*/
+  /*background-color: rgba(200, 200, 200, 0.3);*/
 }
-*/
+body{
+  margin: 93px;
+  padding: 10px;
+  border: 1px solid black;
+
+}
 
 main {
   width: 80%;
@@ -67,14 +72,17 @@ header {
   margin-right: 45px;
   
 }
-
 .info > h3 {
   padding: 10px;
   background-color: #4472c4;
   color: white;
   font-size: 1.5em;
+  height: 50px;
 }
+.coluna {
 
+  height: auto;
+}
 table {
   width: 100%;
 }

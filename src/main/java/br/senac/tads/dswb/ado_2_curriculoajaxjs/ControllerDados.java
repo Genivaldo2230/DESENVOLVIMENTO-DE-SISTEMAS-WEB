@@ -4,6 +4,7 @@ package br.senac.tads.dswb.ado_2_curriculoajaxjs;
 
 import br.senac.tads.dswb.ado_2_curriculoajaxjs.DadosDto.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,13 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin("*")
+
 public class ControllerDados {
 
     @GetMapping("/dados")
-    public DadosPessoaisDtos obterDadosPessoais() {
-        DadosPessoaisDtos dados = new DadosPessoaisDtos();
+    public DadosPessoaisDto obterDadosPessoais() {
+        DadosPessoaisDto dados = new DadosPessoaisDto();
 
         dados.setNome("Genivaldo Alves dos Anjos");
         dados.setTelefone("(11) 9 6092-0552");
@@ -34,13 +36,19 @@ public class ControllerDados {
         List<ExperienciaProfissionalDtos> experienciaProfissional = new ArrayList<>();
 
         ExperienciaProfissionalDtos experiencia = new ExperienciaProfissionalDtos();
-        experiencia.setEmpresa("viação Pirajussara");
+        experiencia.setEmpresa("Viação Pirajussara");
         experiencia.setCargo("Motorista Urbano");
         experiencia.setPeriodo("2023 Atualmente");
         experienciaProfissional.add(experiencia);
         dados.setExperienciaProfissional(experienciaProfissional);
 
-        // Existing code...
+        List<String> conhecimentos = new ArrayList<>();
+        conhecimentos.add("Java");
+        conhecimentos.add("JavaScript");
+        conhecimentos.add("HTML");
+        conhecimentos.add("CSS");
+        conhecimentos.add("Node.js");
+        dados.setConhecimentos(conhecimentos);
 
         List<FormacaoAcademicaDtos> formacaoAcademica = new ArrayList<>();
 
@@ -61,40 +69,52 @@ public class ControllerDados {
 
 // Existing code...
 
+        List<Idioma> idiomas = new ArrayList<>();
 
-        List<Idiomas> idiomas = new ArrayList<>();
+        // Criação dos objetos Idioma
+        Idioma idioma1 = new Idioma();
+        Idioma idioma2 = new Idioma();
+        Idioma idioma3 = new Idioma();
 
-        Idiomas idioma1 = new Idiomas();
-        Idiomas idioma2 = new Idiomas();
-        Idiomas idioma3 = new Idiomas();
-
+        // Definição dos atributos para cada idioma
         idioma1.setIdioma("Inglês");
         idioma1.setLeitura("Médio");
         idioma1.setEscrita("Médio");
         idioma1.setConversacao("Médio");
+
         idioma2.setIdioma("Espanhol");
         idioma2.setLeitura("Médio");
         idioma2.setEscrita("Médio");
         idioma2.setConversacao("Médio");
-        idioma3.setIdioma("chinês");
-        idioma3.setLeitura("ruim");
-        idioma3.setEscrita("ruim");
-        idioma3.setConversacao("ruim");
 
+        idioma3.setIdioma("Chinês");
+        idioma3.setLeitura("Ruim");
+        idioma3.setEscrita("Ruim");
+        idioma3.setConversacao("Ruim");
 
+        // Adição dos objetos Idioma à lista
         idiomas.add(idioma1);
         idiomas.add(idioma2);
         idiomas.add(idioma3);
 
-
+        // Adição da lista de idiomas aos dados
         dados.setIdiomas(idiomas);
 
         return dados;
     }
-    @Controller
-    @RequestMapping("/minhaPagina")
-    public class MinhaPaginaController {
-
+//    @Controller
+//    @RequestMapping("/minhaPagina")
+//    public class MinhaPaginaController {
+//        @GetMapping("/minhaPagina")
+//        public ModelAndView pagina(Model model) {
+//            ModelAndView mv = new ModelAndView();
+//            DadosPessoaisDto dados = obterDadosPessoais();
+//
+//            model.addAttribute("dados", dados); // Adicione os dados ao modelo
+//
+//            mv.setViewName("Dados");
+//            return mv;
+//        }
         @GetMapping
         public ModelAndView pagina() {
             ModelAndView mv = new ModelAndView();
@@ -103,4 +123,4 @@ public class ControllerDados {
             return mv;
         }
     }
-}
+
