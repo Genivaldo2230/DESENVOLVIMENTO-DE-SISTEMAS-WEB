@@ -98,7 +98,7 @@ function carregarDados() {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-  carregarDados();
+  carregarDados(dados);
 
   // Assuming carregarSeguidores is defined elsewhere
   carregarSeguidores(dados);
